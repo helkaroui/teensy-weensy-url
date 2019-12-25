@@ -17,15 +17,16 @@ class UrlShortenerController @Inject()(val controllerComponents: ControllerCompo
     val body = request.body.asJson.map(_.as[UrlShortenerRequest]).getOrElse {
       throw new Exception("Missing required parameter: Body")
     }
-    Ok(body.url)
+    val result: UrlShortenerResponse = UrlService.addUrl(body.url)
+    val json = Json.toJson(result)
+    Ok(json)
   }
 
   def redirect(shortUrl: String) : Action[AnyContent]  = Action { implicit request: Request[AnyContent] =>
     UrlService.lookUpUrl(shortUrl) match {
       case None => BadRequest(s"Uri: $shortUrl not found in database.")
       case Some(value) => {
-        val json = Json.toJson(value)
-        Ok(json)
+        PermanentRedirect(value.originalUrl)
       }
     }
   }

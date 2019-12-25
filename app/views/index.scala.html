@@ -1,5 +1,40 @@
-@()
+@(domain: String)
+@main("Welcome to Teensy Weensy Url") {
+  <h1>Welcome to Teensy Weensy Url!</h1>
+  <h2>Domain name: @domain</h2>
 
-@main("Welcome to Play") {
-  <h1>Welcome to Play!</h1>
+  <form id="formoid" action="/api/v1.0/shortener" method="post">
+    Long URL: <br>
+    <input type="text" id="url" name="url"><br>
+    <input type="submit" value="Shorten">
+  </form>
+
+  <p>Short Url: </p> <a id="shortUrl" href=""></a>
+
+
+<h4>Made by Hamza EL KAROUI (helkarou[at]gmail.com)</h4>
+
+  <script type='text/javascript'>
+      $("#formoid").submit(function(event) {
+
+        event.preventDefault();
+
+        var $form = $( this ),
+            url = $form.attr( 'action' );
+
+        $.ajax({
+          url: url,
+          method: "POST",
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify({ url: $('#url').val() }),
+
+          success:function(response) {
+            $("#shortUrl").html(response.shortUrl)
+            $("#shortUrl").attr("href", response.shortUrl)
+          }
+        })
+
+      });
+  </script>
 }

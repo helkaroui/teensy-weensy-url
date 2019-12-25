@@ -1,0 +1,5 @@
+FROM arm64v8/openjdk:11-jre
+
+COPY svc /svc
+EXPOSE 9000
+CMD /svc/bin/start -Dconfig.file=/opt/conf/prod.conf
