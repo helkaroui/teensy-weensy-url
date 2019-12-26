@@ -1,6 +1,6 @@
 name="teensy-weensy-url"
 organization="charik"
-version="1.0.0"
+version="1.0.1"
 
 repository="$organization/$name"
 
@@ -26,6 +26,8 @@ for docker_arch in amd64 arm64v8; do
   docker buildx build --platform ${platform_arch} -t ${repository}:${version}-${docker_arch} --push -f Dockerfile.${docker_arch} .
 done
 
+
+rm -r -f ~/.docker/manifests/*
 
 echo "#######################################################"
 echo "###         Creating docker manifest version: $version ###"
