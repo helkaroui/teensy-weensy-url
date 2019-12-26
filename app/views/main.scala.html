@@ -11,16 +11,55 @@
     <head>
         @* Here's where we render the page title `String`. *@
         <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-        <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CPoppins:400,500" rel="stylesheet">
+
+        <!-- Stylesheets -->
+        <link href="@routes.Assets.versioned("stylesheets/bootstrap.css")" rel="stylesheet">
+
+        <link href="@routes.Assets.versioned("stylesheets/ionicons.css")" rel="stylesheet">
+
+
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/jquery.classycountdown.css")" />
+
+        <link href="@routes.Assets.versioned("stylesheets/styles.css")" rel="stylesheet">
+
+        <link href="@routes.Assets.versioned("stylesheets/responsive.css")" rel="stylesheet">
+
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.1.1.min.js")"></script>
 
     </head>
     <body>
-        @* And here's where we render the `Html` object containing
-         * the page content. *@
-        @content
 
-      <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+        <div class="main-area">
+            <div class="container full-height position-static">
+                @* And here's where we render the `Html` object containing
+                * the page content. *@
+                @content
+            </div><!-- container -->
+        </div><!-- main-area -->
+
+
+	    <script src="@routes.Assets.versioned("javascripts/jquery-3.1.1.min.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/tether.min.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/jquery.classycountdown.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/jquery.knob.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/jquery.throttle.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/scripts.js")"></script>
+
+
     </body>
 </html>

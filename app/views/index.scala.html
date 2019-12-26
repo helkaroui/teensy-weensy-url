@@ -1,18 +1,75 @@
-@(domain: String)
+@(domain: String, stats: StatsResponse)
 @main("Welcome to Teensy Weensy Url") {
-  <h1>Welcome to Teensy Weensy Url!</h1>
-  <h2>Domain name: @domain</h2>
 
-  <form id="formoid" action="/api/v1.0/shortener" method="post">
-    Long URL: <br>
-    <input type="text" id="url" name="url"><br>
-    <input type="submit" value="Shorten">
-  </form>
+<section class="left-section full-height">
 
-  <p>Short Url: </p> <a id="shortUrl" href=""></a>
+  <a class="logo" href="https://tiny.charik.org">Teensy Weensy</a>
 
+  <div class="display-table">
+    <div class="display-table-cell">
+      <div class="main-content">
+        <h1 class="title"><b>Teensy Weensy Url !</b></h1>
+        <p>Teensy Weensy is a URL shortening web service, which provides short aliases for redirection of long URLs.
+        </p>
 
-<h4>Made by Hamza EL KAROUI (helkarou[at]gmail.com)</h4>
+        <div class="email-input-area">
+          <form id="formoid" action="/api/v1.0/shortener" method="post">
+            <input id="url" class="email-input" name="url" type="text" placeholder="Enter your url"/>
+            <button class="submit-btn" name="submit" type="submit"><b>Shorten !</b></button>
+          </form>
+        </div><!-- email-input-area -->
+
+        <h4 class="post-desc"><a id="shortUrl" href=""></a></h4>
+      </div><!-- main-content -->
+    </div><!-- display-table-cell -->
+  </div><!-- display-table -->
+
+  <ul class="footer-icons">
+    <li>Stay in touch : </li>
+    <li><a href="https://github.com/helkaroui"><i class="ion-social-github"></i></a></li>
+    <li><a href="https://twitter.com/HamzaELKAROUI1"><i class="ion-social-twitter"></i></a></li>
+  </ul>
+
+</section><!-- left-section -->
+
+<section class="right-section" style="background-image: url(@routes.Assets.versioned("images/countdown-1-1000x1000.jpg"))">
+
+<div class="display-table center-text">
+  <div class="display-table-cell">
+    <div id="rounded-countdown">
+      <div class="countdown" data-remaining-sec="2000000">
+        <div class="ClassyCountdown-wrapper">
+          <div class="ClassyCountdown-days" style="height: 165px;">
+            <div style="display: inline; height: 165px; width: 165px;">
+              <canvas width="165" height="165"></canvas>
+              <input type="text" style="display: none; width: 0px; visibility: hidden;" readonly="readonly"></div>
+            <span class="ClassyCountdown-value"
+                  style="font-weight: 600; color: rgb(255, 255, 255); margin-top: -41px; font-size: 37px;"><div>@stats.urlsCount</div><span
+                    style="font-size: 0.5em;">Urls</span></span>
+          </div>
+          <div class="ClassyCountdown-hours" style="height: 165px;">
+            <div style="display: inline; height: 165px; width: 165px;">
+              <canvas width="165" height="165"></canvas>
+              <input type="text" style="display: none; width: 0px; visibility: hidden;" readonly="readonly"></div>
+            <span class="ClassyCountdown-value"
+                  style="font-weight: 600; color: rgb(255, 255, 255); margin-top: -41px; font-size: 37px;"><div>@stats.urlsCount</div><span
+                    style="font-size: 0.5em;">Visitors</span></span>
+          </div>
+          <div class="ClassyCountdown-minutes" style="height: 165px;">
+            <div style="display: inline; height: 165px; width: 165px;">
+              <canvas width="165" height="165"></canvas>
+              <input type="text" style="display: none; width: 0px; visibility: hidden;" readonly="readonly"></div>
+            <span class="ClassyCountdown-value"
+                  style="font-weight: 600; color: rgb(255, 255, 255); margin-top: -41px; font-size: 37px;"><div>@stats.requestsCount</div><span
+                    style="font-size: 0.5em;">Requests</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- display-table-cell -->
+</div><!-- display-table -->
+
+</section><!-- right-section -->
 
   <script type='text/javascript'>
       $("#formoid").submit(function(event) {

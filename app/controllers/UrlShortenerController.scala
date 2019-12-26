@@ -1,10 +1,10 @@
 package controllers
 
 import javax.inject._
-import models.{UrlShortenerRequest, UrlShortenerResponse}
+import models.{StatsResponse, UrlShortenerRequest, UrlShortenerResponse}
 import play.api.libs.json.{Format, Json}
 import play.api.mvc._
-import services.UrlService
+import services.{StatsService, UrlService}
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -13,7 +13,13 @@ import services.UrlService
 @Singleton
 class UrlShortenerController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
-  def generate() = Action { implicit request: Request[AnyContent] =>
+  def stats(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
+    val result = StatsService.getStats
+    val json = Json.toJson(result)
+    Ok(json)
+  }
+
+  def generate(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     val body = request.body.asJson.map(_.as[UrlShortenerRequest]).getOrElse {
       throw new Exception("Missing required parameter: Body")
     }
@@ -26,6 +32,7 @@ class UrlShortenerController @Inject()(val controllerComponents: ControllerCompo
     UrlService.lookUpUrl(shortUrl) match {
       case None => BadRequest(s"Uri: $shortUrl not found in database.")
       case Some(value) => {
+        StatsService.incrementRequestsCounter()
         PermanentRedirect(value.originalUrl)
       }
     }

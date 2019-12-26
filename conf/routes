@@ -6,7 +6,9 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 GET     /:shortUrl                  controllers.UrlShortenerController.redirect(shortUrl: String)
++ nocsrf
 POST    /api/v1.0/shortener         controllers.UrlShortenerController.generate
+GET     /api/v1.0/stats         controllers.UrlShortenerController.stats
 
 
 # Map static resources from the /public folder to the /assets URL path

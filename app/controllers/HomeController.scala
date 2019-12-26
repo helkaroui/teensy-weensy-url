@@ -1,8 +1,10 @@
 package controllers
 
 import javax.inject._
+import models.StatsResponse
 import play.api._
 import play.api.mvc._
+import services.StatsService
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -18,8 +20,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
-  def index() = Action { implicit request: Request[AnyContent] =>
+  def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     val commonConfig = utils.ApplicationConfig.CommonConfig
-    Ok(views.html.index(commonConfig.domain))
+    val stats: StatsResponse = StatsService.getStats
+    Ok(views.html.index(commonConfig.domain, stats))
   }
+
 }
