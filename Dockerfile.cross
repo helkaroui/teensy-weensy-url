@@ -1,4 +1,4 @@
-FROM arm64v8/openjdk:11-jre
+FROM __BASEIMAGE_ARCH__:11-jre
 
 COPY svc /svc
 EXPOSE 9000
