@@ -27,9 +27,9 @@ for docker_arch in amd64 arm64v8; do
 done
 
 
-echo "#################################################"
-echo "###         Creating docker manifest          ###"
-echo "#################################################"
+echo "#######################################################"
+echo "###         Creating docker manifest version: $version ###"
+echo "#######################################################"
 
 manifest_args="$repository:$version"
 for docker_arch in amd64 arm64v8; do manifest_args=$manifest_args" $repository:${version}-${docker_arch} "; done;
@@ -38,9 +38,30 @@ docker manifest create $manifest_args --amend
 
 for docker_arch in amd64 arm64v8; do
     case ${docker_arch} in
-      arm64v8   ) docker manifest annotate ${repository}:${version} ${repository}:${version}-arm64v8 --os linux --arch arm64 --variant armv8  ;;
+      arm64v8   ) docker manifest annotate ${repository}:${version} ${repository}:${version}-arm64v8 --os linux --arch arm64 --variant v8  ;;
       amd64     ) docker manifest annotate ${repository}:${version} ${repository}:${version}-amd64 --os linux --arch amd64 ;;
     esac
 done
 
 docker manifest push ${repository}:${version}
+
+
+
+
+echo "#######################################################"
+echo "###         Creating docker manifest latest         ###"
+echo "#######################################################"
+
+manifest_args="$repository:latest"
+for docker_arch in amd64 arm64v8; do manifest_args=$manifest_args" $repository:${version}-${docker_arch} "; done;
+
+docker manifest create $manifest_args --amend
+
+for docker_arch in amd64 arm64v8; do
+    case ${docker_arch} in
+      arm64v8   ) docker manifest annotate ${repository}:latest ${repository}:${version}-arm64v8 --os linux --arch arm64 --variant v8  ;;
+      amd64     ) docker manifest annotate ${repository}:latest ${repository}:${version}-amd64 --os linux --arch amd64 ;;
+    esac
+done
+
+docker manifest push ${repository}:latest
